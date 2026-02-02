@@ -1,5 +1,6 @@
 import { TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
+import input from 'input';
 import fs from "fs/promises";
 import path from "path";
 
@@ -7,7 +8,7 @@ const appId = 123465;
 const apiHash = "put hash here";
 const stringSession = new StringSession("");
 
-const channel = ["ConfigHub2"] // double check this
+const channel = ["ConfigsHUB"] // double check this
 const outputFile = path.join(__dirname, "config_harvested.json");
 
 const client = new TelegramClient(stringSession, appId, apiHash, {
@@ -47,9 +48,9 @@ async function saveMessages(){
     console.log("Starting client...")
 
     await client.start({
-        phoneNumber: async () => require("input")("Phone Number: ") ,
-        password: async () => require("input")("Password (if 2FA): ") ,
-        phoneCode: async () => require("input")("Code : "),
+        phoneNumber: async () => input.text("Phone Number: ") ,
+        password: async () => input.text("Password (if 2FA): ") ,
+        phoneCode: async () => input.text("Code : "),
         onError: (err) => console.log(`Login error : ${err}`),
     });
 
